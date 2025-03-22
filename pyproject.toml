@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "snakemake-executor-plugin-cluster-generic"
+name = "snakemake-executor-plugin-cluster-hoffman2"
 version = "1.0.9"
 description = ""
 authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/snakemake/snakemake-executor-plugin-cluster-generic"
+repository = "https://github.com/peterch405/snakemake-executor-plugin-cluster-hoffman2"
 documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/executor/cluster-generic.html"
 keywords = ["snakemake", "plugin", "executor", "cluster"]
 

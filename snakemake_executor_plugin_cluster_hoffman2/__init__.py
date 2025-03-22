@@ -11,6 +11,7 @@ import sys
 import threading
 import time
 from typing import Generator, List, Optional
+import re
 
 from snakemake_interface_common.exceptions import WorkflowError
 from snakemake_interface_executor_plugins.executors.base import SubmittedJobInfo
@@ -78,7 +79,7 @@ class Executor(RemoteExecutor):
     def __post_init__(self):
         if self.workflow.executor_settings.submit_cmd is None:
             raise WorkflowError(
-                "You have to specify a submit command via --cluster-generic-submit-cmd."
+                "You have to specify a submit command via --cluster-hoffman2-submit-cmd."
             )
 
         self.sidecar_vars = None
@@ -166,8 +167,16 @@ class Executor(RemoteExecutor):
             self.report_job_error(job_info, msg=msg)
             return
 
+        # Submitted job 5 with external jobid 'Your job 8009146 ("sciL3Pipe-fastqc-5") has been submitted'.
         if ext_jobid and ext_jobid[0]:
             ext_jobid = ext_jobid[0].strip()
+
+            # for SGE
+            if (match := re.search(r"job (\d+)", ext_jobid)):
+                ext_jobid = match.group(1)
+            else:
+                print(f"Error: Could not parse external job id from string '{ext_jobid}'")
+
             job_info.external_jobid = ext_jobid
 
             self.external_jobid.update((f, ext_jobid) for f in job.output)

@@ -7,14 +7,14 @@ from pathlib import Path
 from typing import Optional
 import snakemake.common.tests
 
-from snakemake_executor_plugin_cluster_generic import ExecutorSettings
+from snakemake_executor_plugin_cluster_hoffman2 import ExecutorSettings
 from snakemake_interface_executor_plugins.settings import ExecutorSettingsBase
 from snakemake_interface_common.exceptions import WorkflowError, ApiError
 
 
 class TestWorkflowsBase(snakemake.common.tests.TestWorkflowsLocalStorageBase):
     def get_executor(self) -> str:
-        return "cluster-generic"
+        return "cluster-hoffman2"
 
     def _get_cmd(self, cmd) -> str:
         return str((Path(__file__).parent / cmd).absolute())
